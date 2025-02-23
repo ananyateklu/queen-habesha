@@ -6,27 +6,27 @@ import Image from 'next/image';
 
 const services = [
     {
-        image: '/images/afro.png',
+        image: '/images/Afro.png',
         title: 'Afro Styling',
         description: 'Expert styling and maintenance for natural afro hair.'
     },
     {
-        image: '/images/braids.png',
+        image: '/images/Braids.png',
         title: 'Braiding',
         description: 'Traditional Ethiopian and modern braiding styles.'
     },
     {
-        image: '/images/curly.png',
+        image: '/images/Curly.png',
         title: 'Curly Hair',
         description: 'Specialized treatments for curly hair patterns.'
     },
     {
-        image: '/images/straight.png',
+        image: '/images/Straight.png',
         title: 'Straight Styles',
         description: 'Professional straightening services.'
     },
     {
-        image: '/images/locks.png',
+        image: '/images/Locks.png',
         title: 'Locks',
         description: 'Expert installation and maintenance of locks.'
     },
@@ -107,7 +107,7 @@ const Services = () => {
                     animate={inView ? 'visible' : 'hidden'}
                     className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 lg:gap-6 mx-auto"
                 >
-                    {services.map((service) => (
+                    {services.map((service, index) => (
                         <motion.div
                             key={service.title}
                             variants={{
@@ -125,6 +125,12 @@ const Services = () => {
                                     fill
                                     className="object-contain rounded-xl hover:scale-105 transition-transform duration-300"
                                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 20vw"
+                                    priority={index < 2}
+                                    onError={(e) => {
+                                        const target = e.target as HTMLImageElement;
+                                        target.src = '/images/placeholder.png';
+                                        console.error(`Error loading image for ${service.title}:`, e);
+                                    }}
                                 />
                             </div>
                             <div className="text-center">
