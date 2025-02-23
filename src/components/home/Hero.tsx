@@ -6,7 +6,7 @@ import Image from 'next/image';
 
 const Hero = () => {
     return (
-        <section id="home" className="relative min-h-[90vh] flex items-start md:items-center justify-center bg-black pt-20 md:pt-0">
+        <section id="home" className="relative h-[calc(100vh-5rem)] md:h-screen flex items-start md:items-center justify-center bg-black pt-16 md:pt-0">
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
                 <div className="absolute inset-0 bg-black/70 z-10" />
