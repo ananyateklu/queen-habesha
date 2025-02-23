@@ -11,8 +11,8 @@ interface GoogleReview {
 
 export async function GET() {
     try {
-        const PLACE_ID = process.env.NEXT_PUBLIC_GOOGLE_PLACE_ID;
-        const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY;
+        const PLACE_ID = process.env.GOOGLE_PLACE_ID;
+        const API_KEY = process.env.GOOGLE_MAPS_API;
 
         if (!PLACE_ID || !API_KEY) {
             throw new Error('Missing required environment variables');
