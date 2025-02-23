@@ -177,7 +177,7 @@ const Testimonials = () => {
                                     style={{ width }}
                                 >
                                     <motion.a
-                                        href="https://www.google.com/maps/place/Queen+Habesha+Hair+Braiding/@44.7900081,-93.2340887,17z/data=!4m8!3m7!1s0x87f63c2c3a2a8c3d:0x1f5c6e5e4c4e8e1a!8m2!3d44.7900081!4d-93.2340887!9m1!1b1!16s%2Fg%2F11t_x_7_zj"
+                                        href="https://www.google.com/maps/place/Queen+Habesha+Hair+Braiding/@44.7898049,-93.2368792,17z/data=!3m1!4b1!4m6!3m5!1s0x87f6317195ee40bf:0xdfbaa187809a1fa7!8m2!3d44.7898049!4d-93.2343043!16s%2Fg%2F11k4y9n6qb?entry=ttu&g_ep=EgoyMDI1MDIxOS4xIKXMDSoASAFQAw%3D%3D"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="block cursor-pointer"

@@ -10,13 +10,13 @@ const crewMembers = [
         name: 'Helen',
         role: 'Co-Owner & Master Stylist',
         image: '/images/Helen.png',
-        instagram: 'https://instagram.com/queenhabesha',
+        instagram: 'https://www.instagram.com/hhailu401/',
     },
     {
         name: 'Mekdi',
         role: 'Co-Owner & Master Stylist',
         image: '/images/mekdi.jpg',
-        instagram: 'https://instagram.com/queenhabesha',
+        instagram: 'https://www.instagram.com/mekdesakwak/',
     },
 ];
 
