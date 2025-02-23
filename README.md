@@ -66,35 +66,6 @@ yarn dev
 
 5. View the website at [http://localhost:3000](http://localhost:3000)
 
-## Project Structure
-```
-queen-habesha/
-├── src/
-│   ├── app/                  # Next.js app directory
-│   │   ├── contact/         # Contact/booking page
-│   │   ├── layout.tsx      # Root layout
-│   │   └── page.tsx        # Home page
-│   ├── components/          # React components
-│   │   ├── home/           # Home page sections
-│   │   │   ├── Hero.tsx    # Hero section
-│   │   │   ├── Services.tsx # Services section
-│   │   │   ├── Crew.tsx    # Team members section
-│   │   │   └── Testimonials.tsx # Client reviews
-│   │   └── layout/         # Shared layouts
-│   │       └── Navbar.tsx  # Navigation bar
-│   └── styles/             # Additional styles
-├── public/                 # Static assets
-│   └── images/            # Website images
-├── package.json           # Dependencies
-└── README.md             # Documentation
-```
-
-## Image Requirements
-
-The website requires the following images in the `public/images` directory:
-- `hero-bg.jpg` (1920x1080px) - Salon interior or styling work
-- `stylist-1.jpg` to `stylist-3.jpg` (600x800px) - Team member photos
-- `testimonial-1.jpg` to `testimonial-4.jpg` (200x200px) - Client photos
 
 ## Development Notes
 
@@ -110,15 +81,3 @@ The website requires the following images in the `public/images` directory:
 Deploy to Vercel with zero configuration:
 ```bash
 npm run build
-# or
-yarn build
-```
-
-## Contributing
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
