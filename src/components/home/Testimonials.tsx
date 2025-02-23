@@ -65,7 +65,7 @@ const Testimonials = () => {
     }
 
     return (
-        <section id="testimonials" className="py-16 pt-32 bg-gray-50 overflow-hidden scroll-mt-32">
+        <section id="testimonials" className="py-16 md:py-32 bg-gray-50 overflow-hidden scroll-mt-32">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-6">
                     <motion.div
@@ -88,30 +88,37 @@ const Testimonials = () => {
 
                 <motion.div
                     ref={ref}
-                    className="relative min-h-[600px] md:min-h-[450px] lg:min-h-[400px]"
+                    className="relative mt-8"
+                    id="testimonials-container"
+                    style={{
+                        minHeight: typeof window !== 'undefined' && window.innerWidth >= 768
+                            ? `${Math.ceil(reviews.length / (window.innerWidth >= 1024 ? 3 : 2)) * (220)}px`
+                            : 'auto'
+                    }}
                 >
-                    <div className="absolute inset-0">
+                    <div className="md:absolute md:inset-0 flex flex-col md:block">
                         {reviews.map((review, index) => {
                             // Calculate responsive grid position based on screen size and review length
                             const getGridPosition = () => {
                                 const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
                                 const isTablet = typeof window !== 'undefined' && window.innerWidth < 1024;
                                 const isLongReview = review.text.length > 150;
+                                const cardHeight = isLongReview ? 220 : 180;
 
                                 if (isMobile) {
                                     return {
-                                        baseX: 20,
-                                        baseY: index * (isLongReview ? 200 : 160),
-                                        moveX: 15,
-                                        width: 'calc(100% - 40px)'
+                                        baseX: 0,
+                                        baseY: 0,
+                                        moveX: 10,
+                                        width: '100%'
                                     };
                                 } else if (isTablet) {
                                     const row = Math.floor(index / 2);
                                     const col = index % 2;
                                     return {
                                         baseX: col * 300 + 40,
-                                        baseY: row * (isLongReview ? 220 : 180),
-                                        moveX: 20,
+                                        baseY: row * cardHeight,
+                                        moveX: 15,
                                         width: '280px'
                                     };
                                 }
@@ -120,33 +127,47 @@ const Testimonials = () => {
                                 const col = index % 3;
                                 return {
                                     baseX: col * 300 + 40,
-                                    baseY: row * (isLongReview ? 220 : 180),
-                                    moveX: 25,
+                                    baseY: row * cardHeight,
+                                    moveX: 20,
                                     width: '280px'
                                 };
                             };
 
                             const { baseX, baseY, moveX, width } = getGridPosition();
+                            const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
                             return (
                                 <motion.div
                                     key={index}
-                                    className="absolute"
+                                    className={`${isMobile ? 'relative mb-4' : 'absolute'}`}
                                     initial={{
-                                        x: baseX,
-                                        y: baseY,
-                                        opacity: 0
+                                        x: isMobile ? 0 : baseX - 100,
+                                        y: isMobile ? 50 : baseY + 50,
+                                        opacity: 0,
+                                        scale: 0.9
                                     }}
                                     animate={{
-                                        x: [baseX, baseX + moveX, baseX],
-                                        y: [baseY, baseY - 10, baseY],
-                                        opacity: 1
+                                        x: isMobile ? 0 : [baseX, baseX + moveX, baseX],
+                                        y: isMobile ? 0 : [baseY, baseY - 10, baseY],
+                                        opacity: 1,
+                                        scale: 1
                                     }}
                                     transition={{
-                                        duration: 4 + Math.random() * 1,
-                                        repeat: Infinity,
+                                        duration: isMobile ? 0.5 : 4 + Math.random() * 1,
+                                        repeat: isMobile ? 0 : Infinity,
                                         ease: "easeInOut",
-                                        y: {
+                                        delay: index * 0.2,
+                                        opacity: {
+                                            duration: 0.8,
+                                            ease: "easeOut",
+                                            delay: index * 0.2
+                                        },
+                                        scale: {
+                                            duration: 0.8,
+                                            ease: "easeOut",
+                                            delay: index * 0.2
+                                        },
+                                        y: isMobile ? {} : {
                                             duration: 2 + Math.random() * 0.5,
                                             repeat: Infinity,
                                             ease: "easeInOut",
@@ -155,16 +176,19 @@ const Testimonials = () => {
                                     }}
                                     style={{ width }}
                                 >
-                                    <a
+                                    <motion.a
                                         href="https://www.google.com/maps/place/Queen+Habesha+Hair+Braiding/@44.7900081,-93.2340887,17z/data=!4m8!3m7!1s0x87f63c2c3a2a8c3d:0x1f5c6e5e4c4e8e1a!8m2!3d44.7900081!4d-93.2340887!9m1!1b1!16s%2Fg%2F11t_x_7_zj"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="block cursor-pointer transform transition-transform duration-200 hover:scale-[1.02]"
+                                        className="block cursor-pointer"
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        transition={{ type: "spring", stiffness: 400, damping: 17 }}
                                     >
                                         <div className="bg-white rounded-xl shadow-lg p-3 border border-gray-100 hover:border-gray-200 hover:shadow-xl transition-all duration-300 flex flex-col h-full">
                                             <div className="flex items-center mb-2">
                                                 {review.profile_photo_url ? (
-                                                    <div className="relative w-8 h-8 overflow-hidden mr-2 shadow-sm">
+                                                    <div className="relative w-8 h-8 overflow-hidden mr-2 shadow-sm rounded-full">
                                                         <Image
                                                             src={review.profile_photo_url}
                                                             alt={review.author_name}
@@ -173,22 +197,10 @@ const Testimonials = () => {
                                                             unoptimized
                                                             loading="eager"
                                                             priority={index < 2}
-                                                            onError={(e) => {
-                                                                const target = e.target as HTMLImageElement;
-                                                                const parent = target.parentElement;
-                                                                if (parent) {
-                                                                    target.style.display = 'none';
-                                                                    parent.classList.add('bg-blue-100', 'flex', 'items-center', 'justify-center');
-                                                                    const span = document.createElement('span');
-                                                                    span.className = 'text-[10px] font-semibold text-blue-600';
-                                                                    span.textContent = review.author_name.split(' ').map(n => n[0]).join('');
-                                                                    parent.appendChild(span);
-                                                                }
-                                                            }}
                                                         />
                                                     </div>
                                                 ) : (
-                                                    <div className="w-8 h-8 bg-blue-100 flex items-center justify-center mr-2 shadow-sm">
+                                                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-2 shadow-sm">
                                                         <span className="text-[10px] font-semibold text-blue-600">
                                                             {review.author_name.split(' ').map(n => n[0]).join('')}
                                                         </span>
@@ -210,15 +222,12 @@ const Testimonials = () => {
                                             </div>
                                             <div className="relative flex-1">
                                                 <FaQuoteLeft className="text-gray-200/50 text-sm absolute -top-1 -left-0.5" />
-                                                <p className="text-gray-600 italic relative z-10 pl-3 text-[11px] leading-relaxed line-clamp-5 group-hover:text-gray-800">
+                                                <p className="text-gray-600 italic relative z-10 pl-3 text-[11px] leading-relaxed line-clamp-4">
                                                     {review.text}
                                                 </p>
-                                                <div className="absolute bottom-0 right-0 text-[10px] text-blue-500 opacity-0 transform translate-y-2 transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0">
-                                                    View on Google Maps →
-                                                </div>
                                             </div>
                                         </div>
-                                    </a>
+                                    </motion.a>
                                 </motion.div>
                             );
                         })}

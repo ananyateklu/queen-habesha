@@ -2,48 +2,71 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 
 const navItems = [
-    { name: 'Home', href: '/' },
-    { name: 'Services', href: '/#services' },
-    { name: 'Our Crew', href: '/#crew' },
-    { name: 'Testimonials', href: '/#testimonials' },
-    { name: 'Contact Us', href: '/#contact' },
+    { name: 'Home', href: '/', sectionId: 'home' },
+    { name: 'Services', href: '/#services', sectionId: 'services' },
+    { name: 'Our Crew', href: '/#crew', sectionId: 'crew' },
+    { name: 'Testimonials', href: '/#testimonials', sectionId: 'testimonials' },
+    { name: 'Contact Us', href: '/#contact', sectionId: 'contact' },
 ];
 
 const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [activeSection, setActiveSection] = useState('home');
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const pathname = usePathname();
 
     useEffect(() => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 50);
 
-            // Get all sections
-            const sections = ['home', 'services', 'crew', 'testimonials', 'contact'];
+            // Find which section is most visible
+            let maxVisibility = 0;
+            let mostVisibleSection = 'home';
 
-            // Find the current section
-            for (const section of sections) {
-                const element = document.getElementById(section);
+            navItems.forEach(({ sectionId }) => {
+                const element = document.getElementById(sectionId);
                 if (element) {
                     const rect = element.getBoundingClientRect();
-                    // Add offset to account for navbar height
-                    const offset = section === 'home' ? 0 : 96;
-                    if (rect.top <= offset && rect.bottom > 0) {
-                        setActiveSection(section);
-                        break;
+                    const total = rect.height;
+                    const visible = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+                    const percentage = visible / total;
+
+                    // Special case for home section
+                    if (sectionId === 'home' && window.scrollY < 100) {
+                        maxVisibility = 1;
+                        mostVisibleSection = 'home';
+                        return;
+                    }
+
+                    // Adjust visibility calculation based on section position
+                    const adjustedVisibility = percentage * (1 - Math.abs(rect.top) / window.innerHeight);
+
+                    if (adjustedVisibility > maxVisibility) {
+                        maxVisibility = adjustedVisibility;
+                        mostVisibleSection = sectionId;
                     }
                 }
-            }
+            });
+
+            setActiveSection(mostVisibleSection);
         };
 
         window.addEventListener('scroll', handleScroll);
+        // Initial check
+        handleScroll();
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+
+    // Close mobile menu when clicking a link
+    const handleMobileNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+        setIsMobileMenuOpen(false);
+        scrollToSection(e, href);
+    };
 
     const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
         if (pathname !== '/' && href.startsWith('/#')) {
@@ -61,7 +84,12 @@ const Navbar = () => {
         const targetId = href.replace('/#', '');
         const element = document.getElementById(targetId);
         if (element) {
-            element.scrollIntoView({ behavior: 'smooth' });
+            const navHeight = 80; // Height of the navbar
+            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+            window.scrollTo({
+                top: elementPosition - navHeight,
+                behavior: 'smooth'
+            });
             setActiveSection(targetId);
         }
     };
@@ -115,6 +143,7 @@ const Navbar = () => {
                     </div>
 
                     <button
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                         className="md:hidden p-2 rounded-md text-white hover:text-gray-200 hover:bg-white/10 focus:outline-none"
                         aria-label="Navigation Menu"
                     >
@@ -127,11 +156,45 @@ const Navbar = () => {
                             viewBox="0 0 24 24"
                             stroke="currentColor"
                         >
-                            <path d="M4 6h16M4 12h16M4 18h16" />
+                            {isMobileMenuOpen ? (
+                                <path d="M6 18L18 6M6 6l12 12" />
+                            ) : (
+                                <path d="M4 6h16M4 12h16M4 18h16" />
+                            )}
                         </svg>
                     </button>
                 </div>
             </div>
+
+            {/* Mobile Menu */}
+            <AnimatePresence>
+                {isMobileMenuOpen && (
+                    <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: 'auto' }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className={`md:hidden ${isScrolled ? 'bg-black/90' : 'bg-black/70'} backdrop-blur-sm border-t border-white/10`}
+                    >
+                        <div className="px-4 pt-2 pb-4 space-y-1">
+                            {navItems.map((item) => {
+                                const sectionId = item.href.replace('/#', '') || 'home';
+                                return (
+                                    <Link
+                                        key={item.name}
+                                        href={item.href}
+                                        onClick={(e) => handleMobileNavClick(e, item.href)}
+                                        className={`block px-3 py-2 rounded-md text-base font-medium text-white hover:text-yellow-400 transition-colors
+                                            ${activeSection === sectionId ? 'text-yellow-400 bg-white/5' : ''}`}
+                                    >
+                                        {item.name}
+                                    </Link>
+                                );
+                            })}
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </motion.nav>
     );
 };
