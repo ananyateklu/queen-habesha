@@ -6,21 +6,36 @@ import Image from 'next/image';
 
 const Hero = () => {
     return (
-        <section id="home" className="relative h-screen flex items-center justify-center">
+        <section id="home" className="relative h-screen flex items-center justify-center bg-black">
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
-                <div className="absolute inset-0 bg-black/50 z-10" />
+                <div className="absolute inset-0 bg-black/70 z-10" />
                 <Image
-                    src="/images/hero-bg.jpg"
-                    alt="Queen Habesha Hair Salon"
+                    src="/images/HomeMain.png"
+                    alt="Queen Habesha Hair Salon Interior"
                     fill
                     priority
-                    className="object-cover"
+                    className="object-cover opacity-80"
                 />
             </div>
 
             {/* Content */}
             <div className="relative z-20 text-center text-white max-w-4xl mx-auto px-4">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="mb-8"
+                >
+                    <Image
+                        src="/images/logo-inverted.png"
+                        alt="Queen Habesha Logo"
+                        width={200}
+                        height={100}
+                        className="mx-auto"
+                    />
+                </motion.div>
+
                 <motion.h1
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -52,10 +67,10 @@ const Hero = () => {
                         Our Services
                     </Link>
                     <Link
-                        href="/contact"
+                        href="/#contact"
                         className="bg-transparent border-2 border-white text-white hover:bg-white hover:text-gray-900 px-8 py-3 rounded-full font-semibold transition-colors"
                     >
-                        Book Appointment
+                        Contact Us
                     </Link>
                 </motion.div>
             </div>

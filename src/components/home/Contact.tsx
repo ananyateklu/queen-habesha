@@ -2,18 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import { FaMapMarkerAlt, FaPhone, FaEnvelope } from 'react-icons/fa';
-
-const containerStyle = {
-    width: '100%',
-    height: '400px'
-};
-
-const center = {
-    lat: 44.9688,
-    lng: -93.2474
-};
 
 type FormData = {
     fullName: string;
@@ -208,57 +197,43 @@ const Contact = () => {
                         </form>
                     </motion.div>
 
-                    {/* Contact Information and Map */}
+                    {/* Contact Information */}
                     <motion.div
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.6, delay: 0.4 }}
-                        className="space-y-8"
+                        className="bg-white rounded-lg shadow-lg p-8"
                     >
-                        <div className="bg-white rounded-lg shadow-lg p-8">
-                            <h3 className="text-2xl font-semibold text-gray-900 mb-6">Salon Information</h3>
-                            <div className="space-y-4">
-                                <div className="flex items-start space-x-3">
-                                    <FaMapMarkerAlt className="text-yellow-600 mt-1" />
-                                    <div>
-                                        <h4 className="text-lg font-medium text-gray-900">Address</h4>
-                                        <p className="text-gray-600">123 Cedar Ave S</p>
-                                        <p className="text-gray-600">Minneapolis, MN 55454</p>
-                                    </div>
-                                </div>
-                                <div className="flex items-start space-x-3">
-                                    <FaPhone className="text-yellow-600 mt-1" />
-                                    <div>
-                                        <h4 className="text-lg font-medium text-gray-900">Phone</h4>
-                                        <p className="text-gray-600">+1 (612) 555-0123</p>
-                                    </div>
-                                </div>
-                                <div className="flex items-start space-x-3">
-                                    <FaEnvelope className="text-yellow-600 mt-1" />
-                                    <div>
-                                        <h4 className="text-lg font-medium text-gray-900">Email</h4>
-                                        <p className="text-gray-600">info@queenhabesha.com</p>
-                                    </div>
-                                </div>
+                        <h3 className="text-2xl font-semibold text-gray-900 mb-6">Salon Information</h3>
+                        <div className="space-y-6">
+                            <div className="flex items-start space-x-3">
+                                <FaMapMarkerAlt className="text-yellow-600 mt-1" />
                                 <div>
-                                    <h4 className="text-lg font-medium text-gray-900">Hours</h4>
-                                    <p className="text-gray-600">Tuesday - Saturday: 9:00 AM - 7:00 PM</p>
-                                    <p className="text-gray-600">Sunday: 10:00 AM - 5:00 PM</p>
-                                    <p className="text-gray-600">Monday: Closed</p>
+                                    <h4 className="text-lg font-medium text-gray-900">Address</h4>
+                                    <p className="text-gray-600">123 Cedar Ave S</p>
+                                    <p className="text-gray-600">Minneapolis, MN 55454</p>
                                 </div>
                             </div>
-                        </div>
-
-                        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
-                            <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY || ''}>
-                                <GoogleMap
-                                    mapContainerStyle={containerStyle}
-                                    center={center}
-                                    zoom={15}
-                                >
-                                    <Marker position={center} />
-                                </GoogleMap>
-                            </LoadScript>
+                            <div className="flex items-start space-x-3">
+                                <FaPhone className="text-yellow-600 mt-1" />
+                                <div>
+                                    <h4 className="text-lg font-medium text-gray-900">Phone</h4>
+                                    <p className="text-gray-600">+1 (612) 555-0123</p>
+                                </div>
+                            </div>
+                            <div className="flex items-start space-x-3">
+                                <FaEnvelope className="text-yellow-600 mt-1" />
+                                <div>
+                                    <h4 className="text-lg font-medium text-gray-900">Email</h4>
+                                    <p className="text-gray-600">info@queenhabesha.com</p>
+                                </div>
+                            </div>
+                            <div>
+                                <h4 className="text-lg font-medium text-gray-900">Hours</h4>
+                                <p className="text-gray-600">Tuesday - Saturday: 9:00 AM - 7:00 PM</p>
+                                <p className="text-gray-600">Sunday: 10:00 AM - 5:00 PM</p>
+                                <p className="text-gray-600">Monday: Closed</p>
+                            </div>
                         </div>
                     </motion.div>
                 </div>
