@@ -93,13 +93,13 @@ const Crew = () => {
     };
 
     return (
-        <section id="crew" className="py-20 bg-white">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-16">
+        <section id="crew" className="py-8 bg-white scroll-mt-24">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="text-center mb-8">
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         animate={inView ? { opacity: 1, y: 0 } : {}}
-                        className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+                        className="text-xl md:text-2xl font-bold text-gray-900 mb-2"
                     >
                         Meet Our Crew
                     </motion.h2>
@@ -107,7 +107,7 @@ const Crew = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={inView ? { opacity: 1, y: 0 } : {}}
                         transition={{ delay: 0.2 }}
-                        className="text-xl text-gray-600"
+                        className="text-sm text-gray-600"
                     >
                         The talented team behind Queen Habesha
                     </motion.p>
@@ -118,7 +118,7 @@ const Crew = () => {
                     variants={containerVariants}
                     initial="hidden"
                     animate={inView ? 'visible' : 'hidden'}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto"
+                    className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto"
                 >
                     {crewMembers.map((member) => (
                         <motion.div
@@ -129,9 +129,9 @@ const Crew = () => {
                             }}
                             whileHover="hover"
                             whileTap="tap"
-                            className="bg-white rounded-3xl overflow-hidden shadow-[0_4px_20px_-2px_rgba(0,0,0,0.1),0_4px_15px_-5px_rgba(0,0,0,0.15)] hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.2),0_10px_20px_-5px_rgba(0,0,0,0.15)] transition-all duration-300 p-4 border border-gray-100 cursor-pointer"
+                            className="bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_-2px_rgba(0,0,0,0.1),0_4px_15px_-5px_rgba(0,0,0,0.15)] hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.2),0_10px_20px_-5px_rgba(0,0,0,0.15)] transition-all duration-300 p-4 border border-gray-100 cursor-pointer"
                         >
-                            <div className="relative w-32 h-32 mx-auto mb-3">
+                            <div className="relative w-24 h-24 mx-auto mb-3">
                                 <motion.div
                                     variants={borderVariants}
                                     initial="initial"
@@ -170,10 +170,10 @@ const Crew = () => {
                                     }
                                 }}
                             >
-                                <h3 className="text-lg font-semibold text-gray-900 mb-1">
+                                <h3 className="text-base font-semibold text-gray-900 mb-0.5">
                                     {member.name}
                                 </h3>
-                                <p className="text-yellow-600 font-medium text-sm mb-2">{member.role}</p>
+                                <p className="text-yellow-600 font-medium text-xs mb-2">{member.role}</p>
                                 <motion.div
                                     className="flex justify-center"
                                     whileHover={{ scale: 1.2 }}
@@ -185,7 +185,7 @@ const Crew = () => {
                                         target="_blank"
                                         rel="noopener noreferrer"
                                     >
-                                        <FaInstagram className="w-5 h-5" />
+                                        <FaInstagram className="w-4 h-4" />
                                     </a>
                                 </motion.div>
                             </motion.div>

@@ -61,10 +61,10 @@ const Services = () => {
 
     const cardVariants = {
         hover: {
-            y: -8,
-            scale: 1.02,
+            y: -4,
+            scale: 1.01,
             transition: {
-                duration: 0.3,
+                duration: 0.2,
                 ease: "easeOut",
                 type: "spring",
                 stiffness: 200
@@ -74,19 +74,19 @@ const Services = () => {
             scale: 0.98,
             y: 0,
             transition: {
-                duration: 0.3
+                duration: 0.2
             }
         }
     };
 
     return (
-        <section id="services" className="py-20 bg-gray-50">
+        <section id="services" className="py-12 bg-gray-50 scroll-mt-24">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-16">
+                <div className="text-center mb-8">
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         animate={inView ? { opacity: 1, y: 0 } : {}}
-                        className="text-3xl md:text-4xl font-bold text-gray-900 mb-4"
+                        className="text-2xl md:text-3xl font-bold text-gray-900 mb-2"
                     >
                         Our Services
                     </motion.h2>
@@ -94,7 +94,7 @@ const Services = () => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={inView ? { opacity: 1, y: 0 } : {}}
                         transition={{ delay: 0.2 }}
-                        className="text-xl text-gray-600"
+                        className="text-lg text-gray-600"
                     >
                         Professional Hair Care Services
                     </motion.p>
@@ -105,7 +105,7 @@ const Services = () => {
                     variants={containerVariants}
                     initial="hidden"
                     animate={inView ? 'visible' : 'hidden'}
-                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 max-w-7xl mx-auto"
+                    className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 lg:gap-6 mx-auto"
                 >
                     {services.map((service) => (
                         <motion.div
@@ -116,22 +116,22 @@ const Services = () => {
                             }}
                             whileHover="hover"
                             whileTap="tap"
-                            className="bg-white rounded-3xl overflow-hidden shadow-[0_4px_20px_-2px_rgba(0,0,0,0.1),0_4px_15px_-5px_rgba(0,0,0,0.15)] hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.2),0_10px_20px_-5px_rgba(0,0,0,0.15)] transition-all duration-300 p-4 border border-gray-100 cursor-pointer"
+                            className="bg-white rounded-2xl overflow-hidden shadow-[0_2px_10px_-2px_rgba(0,0,0,0.1),0_2px_8px_-3px_rgba(0,0,0,0.1)] hover:shadow-[0_8px_20px_-4px_rgba(0,0,0,0.15),0_6px_12px_-3px_rgba(0,0,0,0.1)] transition-all duration-300 p-3 border border-gray-100 cursor-pointer"
                         >
-                            <div className="relative w-full pt-[100%] mb-4">
+                            <div className="relative w-full aspect-square max-w-[160px] mx-auto mb-3">
                                 <Image
                                     src={service.image}
                                     alt={service.title}
                                     fill
-                                    className="object-cover rounded-2xl hover:scale-105 transition-transform duration-300"
+                                    className="object-contain rounded-xl hover:scale-105 transition-transform duration-300"
                                     sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 20vw"
                                 />
                             </div>
                             <div className="text-center">
-                                <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                                <h3 className="text-sm font-semibold text-gray-900 mb-1">
                                     {service.title}
                                 </h3>
-                                <p className="text-gray-600 text-sm">
+                                <p className="text-gray-600 text-xs">
                                     {service.description}
                                 </p>
                             </div>
