@@ -4,33 +4,37 @@ import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import Slider from 'react-slick';
 import { FaQuoteLeft } from 'react-icons/fa';
-import Image from 'next/image';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+
+const colorCombos = [
+    { bg: 'bg-yellow-100', text: 'text-yellow-600' },
+    { bg: 'bg-rose-100', text: 'text-rose-600' },
+    { bg: 'bg-purple-100', text: 'text-purple-600' },
+    { bg: 'bg-blue-100', text: 'text-blue-600' },
+    { bg: 'bg-emerald-100', text: 'text-emerald-600' },
+    { bg: 'bg-orange-100', text: 'text-orange-600' },
+];
 
 const testimonials = [
     {
         name: 'Sarah Johnson',
         role: 'Regular Client',
-        image: '/images/testimonial-1.jpg',
         quote: 'Queen Habesha is the only salon I trust with my natural hair. Their expertise in African hair care is unmatched, and the results are always stunning.',
     },
     {
         name: 'Michael Chen',
         role: 'First-Time Client',
-        image: '/images/testimonial-2.jpg',
         quote: 'I was amazed by their attention to detail and knowledge of different hair types. The braiding work they did was absolutely beautiful.',
     },
     {
         name: 'Emily Rodriguez',
         role: 'Beauty Influencer',
-        image: '/images/testimonial-3.jpg',
         quote: 'The stylists here are true artists. They combine traditional Ethiopian techniques with modern trends to create unique and gorgeous styles.',
     },
     {
         name: 'David Thompson',
         role: 'Wedding Client',
-        image: '/images/testimonial-4.jpg',
         quote: 'They did an amazing job styling my entire wedding party. Everyone\'s hair looked perfect throughout the entire day and night.',
     },
 ];
@@ -98,16 +102,13 @@ const Testimonials = () => {
                 >
                     <Slider {...settings}>
                         {testimonials.map((testimonial, index) => (
-                            <div key={index} className="px-4">
-                                <div className="bg-white rounded-lg shadow-lg p-8">
+                            <div key={index} className="px-4 pb-12">
+                                <div className="bg-white rounded-[2rem] shadow-lg p-8 h-full border border-gray-100 hover:border-gray-200 transition-colors duration-300">
                                     <div className="flex items-center mb-6">
-                                        <div className="w-16 h-16 rounded-full overflow-hidden mr-4 relative">
-                                            <Image
-                                                src={testimonial.image}
-                                                alt={testimonial.name}
-                                                fill
-                                                className="object-cover"
-                                            />
+                                        <div className={`w-16 h-16 rounded-full ${colorCombos[index % colorCombos.length].bg} flex items-center justify-center mr-4 border border-current/20`}>
+                                            <span className={`text-xl font-semibold ${colorCombos[index % colorCombos.length].text}`}>
+                                                {testimonial.name.split(' ').map(n => n[0]).join('')}
+                                            </span>
                                         </div>
                                         <div>
                                             <h3 className="text-lg font-semibold text-gray-900">
@@ -117,7 +118,7 @@ const Testimonials = () => {
                                         </div>
                                     </div>
                                     <div className="relative">
-                                        <FaQuoteLeft className="text-yellow-200 text-4xl absolute -top-4 -left-2" />
+                                        <FaQuoteLeft className="text-gray-200/50 text-4xl absolute -top-4 -left-2" />
                                         <p className="text-gray-600 italic relative z-10 pl-8">
                                             {testimonial.quote}
                                         </p>
@@ -130,6 +131,12 @@ const Testimonials = () => {
             </div>
 
             <style jsx global>{`
+        .testimonials-slider {
+          padding-bottom: 3rem;
+        }
+        .testimonials-slider .slick-dots {
+          bottom: -5px;
+        }
         .testimonials-slider .slick-dots li button:before {
           color: #EAB308;
         }
