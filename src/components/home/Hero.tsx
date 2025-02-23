@@ -32,6 +32,7 @@ const Hero = () => {
                             src="/images/logo-inverted.png"
                             alt="Queen Habesha Logo"
                             fill
+                            sizes="(max-width: 640px) 340px, (max-width: 1024px) 440px, 440px"
                             className="object-contain"
                             priority
                         />

@@ -91,6 +91,7 @@ const Navbar = () => {
                                 src="/images/logo-inverted.png"
                                 alt="Queen Habesha Logo"
                                 fill
+                                sizes="(max-width: 640px) 40px, 40px"
                                 className="object-contain"
                             />
                         </div>

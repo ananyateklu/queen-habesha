@@ -17,6 +17,7 @@ const Footer = () => {
                                     src="/images/logo-inverted.png"
                                     alt="Queen Habesha Logo"
                                     fill
+                                    sizes="(max-width: 640px) 32px, 32px"
                                     className="object-contain"
                                 />
                             </div>
