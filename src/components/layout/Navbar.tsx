@@ -7,11 +7,11 @@ import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 
 const navItems = [
-    { name: 'Home', href: '/', sectionId: 'home' },
-    { name: 'Services', href: '/#services', sectionId: 'services' },
-    { name: 'Our Crew', href: '/#crew', sectionId: 'crew' },
-    { name: 'Testimonials', href: '/#testimonials', sectionId: 'testimonials' },
-    { name: 'Contact Us', href: '/#contact', sectionId: 'contact' },
+    { name: 'Home', href: '/' },
+    { name: 'Services', href: '/#services' },
+    { name: 'Our Crew', href: '/#crew' },
+    { name: 'Testimonials', href: '/#testimonials' },
+    { name: 'Contact Us', href: '/#contact' },
 ];
 
 const Navbar = () => {
@@ -24,41 +24,25 @@ const Navbar = () => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 50);
 
-            // Find which section is most visible
-            let maxVisibility = 0;
-            let mostVisibleSection = 'home';
+            // Get all sections
+            const sections = ['home', 'services', 'crew', 'testimonials', 'contact'];
 
-            navItems.forEach(({ sectionId }) => {
-                const element = document.getElementById(sectionId);
+            // Find the current section
+            for (const section of sections) {
+                const element = document.getElementById(section);
                 if (element) {
                     const rect = element.getBoundingClientRect();
-                    const total = rect.height;
-                    const visible = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
-                    const percentage = visible / total;
-
-                    // Special case for home section
-                    if (sectionId === 'home' && window.scrollY < 100) {
-                        maxVisibility = 1;
-                        mostVisibleSection = 'home';
-                        return;
-                    }
-
-                    // Adjust visibility calculation based on section position
-                    const adjustedVisibility = percentage * (1 - Math.abs(rect.top) / window.innerHeight);
-
-                    if (adjustedVisibility > maxVisibility) {
-                        maxVisibility = adjustedVisibility;
-                        mostVisibleSection = sectionId;
+                    // Add offset to account for navbar height
+                    const offset = section === 'home' ? 0 : 96;
+                    if (rect.top <= offset && rect.bottom > 0) {
+                        setActiveSection(section);
+                        break;
                     }
                 }
-            });
-
-            setActiveSection(mostVisibleSection);
+            }
         };
 
         window.addEventListener('scroll', handleScroll);
-        // Initial check
-        handleScroll();
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
@@ -84,12 +68,7 @@ const Navbar = () => {
         const targetId = href.replace('/#', '');
         const element = document.getElementById(targetId);
         if (element) {
-            const navHeight = 80; // Height of the navbar
-            const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-            window.scrollTo({
-                top: elementPosition - navHeight,
-                behavior: 'smooth'
-            });
+            element.scrollIntoView({ behavior: 'smooth' });
             setActiveSection(targetId);
         }
     };
