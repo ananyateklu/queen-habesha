@@ -32,6 +32,7 @@ const images = [
 const Hairstyles = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isMounted, setIsMounted] = useState(false);
+    const [direction, setDirection] = useState(1); // 1 for forward, -1 for backward
     const [ref] = useInView({
         triggerOnce: true,
         threshold: 0.1,
@@ -61,12 +62,14 @@ const Hairstyles = () => {
     const totalSlides = Math.ceil(images.length / imagesPerView);
 
     const nextSlide = useCallback(() => {
+        setDirection(1); // Set direction to forward
         setCurrentIndex((prevIndex) =>
             prevIndex + imagesPerView >= images.length ? 0 : prevIndex + imagesPerView
         );
     }, [imagesPerView]);
 
     const prevSlide = useCallback(() => {
+        setDirection(-1); // Set direction to backward
         setCurrentIndex((prevIndex) =>
             prevIndex - imagesPerView < 0 ? images.length - imagesPerView : prevIndex - imagesPerView
         );
@@ -78,9 +81,14 @@ const Hairstyles = () => {
     useEffect(() => {
         if (!isMounted) return;
 
-        const interval = setInterval(nextSlide, 5000);
+        const interval = setInterval(() => {
+            setDirection(1); // Set direction to forward for auto-advance
+            setCurrentIndex((prevIndex) =>
+                prevIndex + imagesPerView >= images.length ? 0 : prevIndex + imagesPerView
+            );
+        }, 5000);
         return () => clearInterval(interval);
-    }, [isMounted, nextSlide]);
+    }, [isMounted, imagesPerView]);
 
     const titleVariants = {
         hidden: {
@@ -98,10 +106,10 @@ const Hairstyles = () => {
     };
 
     const imageVariants = {
-        initial: {
+        initial: (direction: number) => ({
             opacity: 0,
-            x: 300,
-        },
+            x: direction > 0 ? 300 : -300,
+        }),
         animate: {
             opacity: 1,
             x: 0,
@@ -112,16 +120,16 @@ const Hairstyles = () => {
                 mass: 1,
             }
         },
-        exit: {
+        exit: (direction: number) => ({
             opacity: 0,
-            x: -300,
+            x: direction > 0 ? -300 : 300,
             transition: {
                 type: "spring",
                 stiffness: 150,
                 damping: 25,
                 mass: 1,
             }
-        }
+        })
     };
 
     return (
@@ -144,11 +152,12 @@ const Hairstyles = () => {
                 <div ref={ref} className="relative px-12">
                     <div className="relative overflow-hidden">
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 min-h-[400px]">
-                            <AnimatePresence initial={false} mode="popLayout">
+                            <AnimatePresence initial={false} mode="popLayout" custom={direction}>
                                 {isMounted && currentImages.map((image) => (
                                     <motion.div
                                         key={image}
                                         className="w-full absolute"
+                                        custom={direction}
                                         variants={imageVariants}
                                         initial="initial"
                                         animate="animate"
