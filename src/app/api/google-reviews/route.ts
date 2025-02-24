@@ -15,34 +15,51 @@ export async function GET() {
         const API_KEY = process.env.GOOGLE_MAPS_API_KEY;
 
         if (!PLACE_ID || !API_KEY) {
-            throw new Error('Missing required environment variables');
+            console.error('Missing environment variables:', {
+                hasPlaceId: !!PLACE_ID,
+                hasApiKey: !!API_KEY
+            });
+            return NextResponse.json(
+                { error: 'Missing required environment variables' },
+                { status: 500 }
+            );
         }
 
-        const response = await fetch(
-            `https://maps.googleapis.com/maps/api/place/details/json?place_id=${PLACE_ID}&fields=reviews&key=${API_KEY}`
-        );
+        const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${PLACE_ID}&fields=reviews&key=${API_KEY}`;
+        console.log('Fetching reviews from:', url);
+
+        const response = await fetch(url);
+        const data = await response.json();
 
         if (!response.ok) {
-            throw new Error('Failed to fetch from Google Places API');
+            console.error('Google API error:', {
+                status: response.status,
+                statusText: response.statusText,
+                data
+            });
+            return NextResponse.json(
+                { error: `Google API error: ${data.error_message || response.statusText}` },
+                { status: response.status }
+            );
         }
 
-        const data = await response.json();
-        console.log('Raw Google Places API response:', data);
+        if (!data.result || !data.result.reviews) {
+            console.error('Invalid response format:', data);
+            return NextResponse.json(
+                { error: 'Invalid response format from Google API' },
+                { status: 500 }
+            );
+        }
 
-        // Sort reviews by date (most recent first) and take the top 6
-        const reviews = (data.result.reviews || []) as GoogleReview[];
-        console.log('Reviews with photos:', reviews.map(review => ({
-            author: review.author_name,
-            photo: review.profile_photo_url
-        })));
-
-        const sortedReviews = reviews
-            .sort((a, b) => b.time - a.time)
-            .slice(0, 6);
+        const reviews = data.result.reviews as GoogleReview[];
+        const sortedReviews = reviews.sort((a, b) => b.time - a.time);
 
         return NextResponse.json({ reviews: sortedReviews });
     } catch (error) {
-        console.error('Error fetching reviews:', error);
-        return NextResponse.json({ error: 'Failed to fetch reviews' }, { status: 500 });
+        console.error('Unexpected error in Google Reviews API:', error);
+        return NextResponse.json(
+            { error: error instanceof Error ? error.message : 'Unknown error occurred' },
+            { status: 500 }
+        );
     }
 } 

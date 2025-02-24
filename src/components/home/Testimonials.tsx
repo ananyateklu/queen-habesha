@@ -27,14 +27,19 @@ const Testimonials = () => {
         const fetchReviews = async () => {
             try {
                 const response = await fetch('/api/google-reviews');
-                if (!response.ok) throw new Error('Failed to fetch reviews');
                 const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to fetch reviews');
+                }
+
                 // Sort reviews by text length, longest first
                 const sortedReviews = [...data.reviews].sort((a, b) => b.text.length - a.text.length);
                 setReviews(sortedReviews);
             } catch (err) {
-                setError('Failed to load reviews');
+                const errorMessage = err instanceof Error ? err.message : 'Failed to load reviews';
                 console.error('Error fetching reviews:', err);
+                setError(errorMessage);
             } finally {
                 setLoading(false);
             }
@@ -55,13 +60,23 @@ const Testimonials = () => {
     if (loading) {
         return (
             <section id="testimonials" className="py-16 pt-32 bg-gray-50">
-                <div className="text-center py-8">Loading reviews...</div>
+                <div className="text-center py-8">
+                    <div className="animate-pulse">Loading reviews...</div>
+                </div>
             </section>
         );
     }
 
-    if (error || !reviews.length) {
-        return null;
+    if (error) {
+        console.error('Reviews error:', error);
+        // Return null or a fallback UI instead of completely hiding the section
+        return (
+            <section id="testimonials" className="py-16 pt-32 bg-gray-50">
+                <div className="text-center py-8">
+                    <p className="text-gray-500">Currently unable to load reviews. Please check back later.</p>
+                </div>
+            </section>
+        );
     }
 
     return (
