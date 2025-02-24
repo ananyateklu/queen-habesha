@@ -11,7 +11,7 @@ const Hero = () => {
             <div className="absolute inset-0 z-0">
                 <div className="absolute inset-0 bg-black/70 z-10" />
                 <Image
-                    src="/images/HomeMain.png"
+                    src="/images/HomeMain.jpg"
                     alt="Queen Habesha Hair Salon Interior"
                     fill
                     priority
