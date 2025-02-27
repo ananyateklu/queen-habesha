@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { FaStar, FaGoogle } from 'react-icons/fa';
+import Image from 'next/image';
 
 interface Review {
     author_name: string;
@@ -84,10 +85,12 @@ const GoogleReviews = () => {
                         >
                             <div className="flex items-center mb-4">
                                 {review.profile_photo_url && (
-                                    <img
+                                    <Image
                                         src={review.profile_photo_url}
                                         alt={review.author_name}
-                                        className="w-10 h-10 rounded-full mr-4"
+                                        width={40}
+                                        height={40}
+                                        className="rounded-full mr-4"
                                     />
                                 )}
                                 <div>

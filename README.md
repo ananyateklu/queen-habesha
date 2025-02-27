@@ -1,6 +1,6 @@
 # Queen Habesha Hair Salon
 
-Welcome to Queen Habesha, Minneapolis's premier Ethiopian hair salon specializing in traditional Ethiopian and modern hair care techniques. Our website showcases our expertise in African hair care, braiding, and styling services.
+Welcome to Queen Habesha, Minnesota's premier Ethiopian hair salon specializing in traditional Ethiopian and modern hair care techniques. Our website showcases our expertise in African hair care, braiding, and styling services.
 
 ## About Queen Habesha
 
@@ -38,7 +38,7 @@ Queen Habesha brings authentic Ethiopian hair care traditions to Minneapolis, of
 
 ### Core Technologies
 
-- Next.js 13+ with App Router
+- Next.js 15.1 with App Router
 - TypeScript for type safety
 - Tailwind CSS for styling
 - Framer Motion for animations
@@ -102,7 +102,7 @@ yarn dev
 
 ```plaintext
 src/
-├── app/                 # Next.js 13 app directory
+├── app/                 # Next.js 15 app directory
 │   ├── api/            # API routes
 │   ├── layout.tsx      # Root layout
 │   └── page.tsx        # Home page
