@@ -82,7 +82,7 @@ const Testimonials = () => {
     return (
         <section id="testimonials" className="py-16 md:py-32 bg-gray-50 overflow-hidden scroll-mt-32">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="text-center mb-6">
+                <div className="text-center mb-12">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -103,7 +103,7 @@ const Testimonials = () => {
 
                 <motion.div
                     ref={ref}
-                    className="relative mt-8"
+                    className="relative mt-8 px-4 sm:px-0"
                     id="testimonials-container"
                     style={{
                         minHeight: typeof window !== 'undefined' && window.innerWidth >= 768
@@ -111,85 +111,60 @@ const Testimonials = () => {
                             : 'auto'
                     }}
                 >
-                    <div className="md:absolute md:inset-0 flex flex-col md:block">
+                    <div className="flex flex-col md:flex-row md:flex-wrap md:justify-center md:items-start gap-4 md:gap-6 w-full">
                         {reviews.map((review, index) => {
                             // Calculate responsive grid position based on screen size and review length
                             const getGridPosition = () => {
                                 const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
                                 const isTablet = typeof window !== 'undefined' && window.innerWidth < 1024;
-                                const isLongReview = review.text.length > 150;
-                                const cardHeight = isLongReview ? 220 : 180;
 
                                 if (isMobile) {
                                     return {
-                                        baseX: 0,
-                                        baseY: 0,
-                                        moveX: 10,
+                                        moveX: 0,
                                         width: '100%'
                                     };
                                 } else if (isTablet) {
-                                    const row = Math.floor(index / 2);
-                                    const col = index % 2;
                                     return {
-                                        baseX: col * 300 + 40,
-                                        baseY: row * cardHeight,
                                         moveX: 15,
-                                        width: '280px'
+                                        width: 'calc(50% - 1rem)'
                                     };
                                 }
                                 // Desktop layout
-                                const row = Math.floor(index / 3);
-                                const col = index % 3;
                                 return {
-                                    baseX: col * 300 + 40,
-                                    baseY: row * cardHeight,
                                     moveX: 20,
-                                    width: '280px'
+                                    width: 'calc(33.333% - 1.5rem)'
                                 };
                             };
 
-                            const { baseX, baseY, moveX, width } = getGridPosition();
+                            const { moveX, width } = getGridPosition();
                             const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
                             return (
                                 <motion.div
                                     key={index}
-                                    className={`${isMobile ? 'relative mb-4' : 'absolute'}`}
-                                    initial={{
-                                        x: isMobile ? 0 : baseX - 100,
-                                        y: isMobile ? 50 : baseY + 50,
-                                        opacity: 0,
-                                        scale: 0.9
-                                    }}
+                                    className="w-full md:w-auto"
+                                    initial={{ opacity: 0, y: 50 }}
                                     animate={{
-                                        x: isMobile ? 0 : [baseX, baseX + moveX, baseX],
-                                        y: isMobile ? 0 : [baseY, baseY - 10, baseY],
                                         opacity: 1,
-                                        scale: 1
+                                        y: isMobile ? 0 : [0, -10, 0],
+                                        x: isMobile ? 0 : [-moveX / 2, moveX / 2, -moveX / 2]
                                     }}
                                     transition={{
-                                        duration: isMobile ? 0.5 : 4 + Math.random() * 1,
-                                        repeat: isMobile ? 0 : Infinity,
-                                        ease: "easeInOut",
-                                        delay: index * 0.2,
-                                        opacity: {
-                                            duration: 0.8,
-                                            ease: "easeOut",
-                                            delay: index * 0.2
-                                        },
-                                        scale: {
-                                            duration: 0.8,
-                                            ease: "easeOut",
-                                            delay: index * 0.2
-                                        },
-                                        y: isMobile ? {} : {
+                                        opacity: { duration: 0.8, delay: index * 0.2 },
+                                        y: {
                                             duration: 2 + Math.random() * 0.5,
-                                            repeat: Infinity,
+                                            repeat: isMobile ? 0 : Infinity,
                                             ease: "easeInOut",
-                                            yoyo: true
+                                            delay: index * 0.2
+                                        },
+                                        x: {
+                                            duration: 3 + Math.random() * 0.5,
+                                            repeat: isMobile ? 0 : Infinity,
+                                            ease: "easeInOut",
+                                            delay: index * 0.2
                                         }
                                     }}
-                                    style={{ width }}
+                                    style={{ width: isMobile ? '100%' : width }}
                                 >
                                     <motion.a
                                         href="https://www.google.com/maps/place/Queen+Habesha+Hair+Braiding/@44.7898049,-93.2368792,17z/data=!3m1!4b1!4m6!3m5!1s0x87f6317195ee40bf:0xdfbaa187809a1fa7!8m2!3d44.7898049!4d-93.2343043!16s%2Fg%2F11k4y9n6qb?entry=ttu&g_ep=EgoyMDI1MDIxOS4xIKXMDSoASAFQAw%3D%3D"
@@ -203,19 +178,19 @@ const Testimonials = () => {
                                         <div className="bg-white rounded-xl shadow-lg p-3 border border-gray-100 hover:border-gray-200 hover:shadow-xl transition-all duration-300 flex flex-col h-full">
                                             <div className="flex items-center mb-2">
                                                 {review.profile_photo_url ? (
-                                                    <div className="relative w-8 h-8 overflow-hidden mr-2 shadow-sm rounded-full">
+                                                    <div className="relative w-8 h-8 overflow-hidden mr-2 shadow-sm">
                                                         <Image
                                                             src={review.profile_photo_url}
                                                             alt={review.author_name}
                                                             fill
-                                                            className="object-cover"
+                                                            className="object-contain"
                                                             unoptimized
                                                             loading="eager"
                                                             priority={index < 2}
                                                         />
                                                     </div>
                                                 ) : (
-                                                    <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mr-2 shadow-sm">
+                                                    <div className="w-8 h-8 bg-blue-100 flex items-center justify-center mr-2 shadow-sm">
                                                         <span className="text-[10px] font-semibold text-blue-600">
                                                             {review.author_name.split(' ').map(n => n[0]).join('')}
                                                         </span>
