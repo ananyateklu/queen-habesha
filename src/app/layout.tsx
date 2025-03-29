@@ -54,10 +54,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
-      <body className={inter.className}>
-        <Navbar />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+      <body className={`${inter.className} overflow-x-hidden relative w-full max-w-[100vw]`}>
+        <div className="flex flex-col min-h-screen w-full overflow-hidden">
+          <Navbar />
+          <main className="flex-1 w-full">{children}</main>
+          <Footer />
+        </div>
         <ScrollToTop />
         <Analytics />
         <SpeedInsights />
