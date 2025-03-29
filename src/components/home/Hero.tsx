@@ -298,13 +298,13 @@ const Hero = () => {
                 transition={{ delay: 2.5, duration: 1 }}
                 className="absolute bottom-4 sm:bottom-12 md:bottom-20 left-1/2 transform -translate-x-1/2"
             >
-                <div className="w-4 h-6 md:w-6 md:h-10 border-2 border-white rounded-full p-1">
+                <div className="w-4 h-6 md:w-6 md:h-10 border-2 border-white rounded-full flex items-center justify-center">
                     <motion.div
                         animate={{
-                            y: [0, 8, 0],
+                            y: [8, -8, 8],
                         }}
                         transition={{
-                            duration: 1.5,
+                            duration: 2.5,
                             repeat: Infinity,
                             repeatType: 'loop',
                         }}
