@@ -189,14 +189,15 @@ const Hero = () => {
                             variants={glowVariants}
                             initial="hidden"
                             animate="visible"
-                            className="absolute inset-0 rounded-full bg-yellow-500/20 blur-xl -z-10 transform scale-90"
+                            className="absolute inset-0 rounded-full bg-yellow-500/15 blur-3xl -z-10 transform scale-125"
+                            style={{ top: '-10%', left: '-10%', right: '-10%', bottom: '-10%', width: 'auto', height: 'auto' }}
                         />
 
                         <motion.div
                             variants={logoVariants}
                             initial="initial"
                             animate="hover"
-                            className="relative w-full h-full"
+                            className="relative w-full h-full z-10"
                         >
                             <Image
                                 src="/images/logo-inverted.png"
