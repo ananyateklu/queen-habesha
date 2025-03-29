@@ -143,12 +143,27 @@ const Contact = () => {
                 >
                     <h2 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 relative inline-block">
                         Get in Touch
-                        <motion.div
-                            className="absolute -bottom-1 left-0 h-0.5 bg-yellow-500 w-0"
-                            animate={{ width: '100%' }}
-                            transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-                        />
                     </h2>
+
+                    <motion.div
+                        className="h-[2px] w-0 mx-auto mt-2 mb-4 relative overflow-hidden"
+                        initial={{ width: 0 }}
+                        animate={{ width: "150px" }}
+                        transition={{
+                            delay: 0.4,
+                            duration: 0.8,
+                            ease: "easeOut"
+                        }}
+                    >
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-500 to-transparent"
+                            style={{
+                                height: '100%',
+                                maskImage: 'linear-gradient(to right, transparent, black 30%, black 70%, transparent)',
+                                WebkitMaskImage: 'linear-gradient(to right, transparent, black 30%, black 70%, transparent)'
+                            }}
+                        />
+                    </motion.div>
+
                     <p className="text-sm text-gray-600 max-w-xl mx-auto mt-2">
                         Ready to transform your hair? Contact us today for appointments and inquiries.
                     </p>

@@ -109,10 +109,30 @@ const Crew = () => {
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         animate={inView ? { opacity: 1, y: 0 } : {}}
-                        className="text-xl md:text-2xl font-bold text-gray-900 mb-2"
+                        className="text-xl md:text-2xl font-bold text-gray-900 mb-2 relative inline-block"
                     >
                         Meet Our Crew
                     </motion.h2>
+
+                    <motion.div
+                        className="h-[2px] w-0 mx-auto mt-2 mb-4 relative overflow-hidden"
+                        initial={{ width: 0 }}
+                        animate={inView ? { width: "150px" } : { width: 0 }}
+                        transition={{
+                            delay: 0.3,
+                            duration: 0.8,
+                            ease: "easeOut"
+                        }}
+                    >
+                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-500 to-transparent"
+                            style={{
+                                height: '100%',
+                                maskImage: 'linear-gradient(to right, transparent, black 30%, black 70%, transparent)',
+                                WebkitMaskImage: 'linear-gradient(to right, transparent, black 30%, black 70%, transparent)'
+                            }}
+                        />
+                    </motion.div>
+
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={inView ? { opacity: 1, y: 0 } : {}}
