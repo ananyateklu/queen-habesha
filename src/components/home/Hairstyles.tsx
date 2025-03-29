@@ -132,6 +132,38 @@ const Hairstyles = () => {
         })
     };
 
+    // Update the arrow animation variants with the matching yellow-500 color
+    const arrowVariants = {
+        initial: (direction: number) => ({
+            opacity: 0,
+            x: direction > 0 ? 20 : -20
+        }),
+        animate: {
+            opacity: 1,
+            x: 0,
+            transition: {
+                delay: 1
+            }
+        },
+        hover: {
+            scale: 1.2,
+            y: -2,
+            filter: "drop-shadow(0 0 8px rgba(0,0,0,0.15))",
+            color: "#eab308", // yellow-500 - matching the horizontal line
+            transition: {
+                duration: 0.2,
+                ease: "easeOut"
+            }
+        },
+        tap: {
+            scale: 0.9,
+            rotate: 0,
+            transition: {
+                duration: 0.1
+            }
+        }
+    };
+
     return (
         <section className="py-16 bg-white">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -169,7 +201,7 @@ const Hairstyles = () => {
                     </p>
                 </motion.div>
 
-                <div ref={ref} className="relative px-12">
+                <div ref={ref} className="relative px-12 md:px-16">
                     <div className="relative overflow-hidden">
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 min-h-[400px]">
                             <AnimatePresence initial={false} mode="popLayout" custom={direction}>
@@ -187,7 +219,7 @@ const Hairstyles = () => {
                                         }}
                                     >
                                         <motion.div
-                                            className="relative aspect-[2/3] rounded-lg overflow-hidden shadow-lg"
+                                            className="relative aspect-[2/3] rounded-lg overflow-hidden shadow-lg mx-1 sm:mx-2"
                                             whileHover={{
                                                 scale: 1.03,
                                                 transition: { duration: 0.3 }
@@ -212,24 +244,88 @@ const Hairstyles = () => {
                     {isMounted && (
                         <>
                             <motion.button
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 1 }}
+                                custom={-1}
+                                variants={arrowVariants}
+                                initial="initial"
+                                animate="animate"
+                                whileHover="hover"
+                                whileTap={{
+                                    scale: 0.9,
+                                    rotate: -15,
+                                    transition: { duration: 0.1 }
+                                }}
                                 onClick={prevSlide}
-                                className="absolute left-0 top-[40%] -translate-y-1/2 -translate-x-2 text-black hover:text-gray-700 transition-colors z-10"
+                                className="absolute left-0 top-[40%] -translate-y-1/2 -translate-x-4 sm:-translate-x-6 text-black transition-all duration-300 z-20 bg-white/30 hover:bg-yellow-100/70 backdrop-blur-sm p-1.5 rounded-full"
                                 aria-label="Previous slide"
                             >
-                                <FaChevronCircleLeft className="w-8 h-8 md:w-10 md:h-10" />
+                                <motion.div
+                                    animate={{
+                                        x: [-3, 0, -3],
+                                        transition: {
+                                            duration: 1.5,
+                                            repeat: Infinity,
+                                            repeatType: "reverse",
+                                            ease: "easeInOut"
+                                        }
+                                    }}
+                                >
+                                    <FaChevronCircleLeft className="w-6 h-6 md:w-7 md:h-7" />
+                                </motion.div>
+                                <motion.span
+                                    className="absolute inset-0 rounded-full bg-yellow-500/10"
+                                    animate={{
+                                        scale: [1, 1.2, 1],
+                                        opacity: [0.5, 0.2, 0.5],
+                                    }}
+                                    transition={{
+                                        duration: 2,
+                                        repeat: Infinity,
+                                        repeatType: "reverse",
+                                        ease: "easeInOut"
+                                    }}
+                                />
                             </motion.button>
                             <motion.button
-                                initial={{ opacity: 0, x: 20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ delay: 1 }}
+                                custom={1}
+                                variants={arrowVariants}
+                                initial="initial"
+                                animate="animate"
+                                whileHover="hover"
+                                whileTap={{
+                                    scale: 0.9,
+                                    rotate: 15,
+                                    transition: { duration: 0.1 }
+                                }}
                                 onClick={nextSlide}
-                                className="absolute right-0 top-[40%] -translate-y-1/2 translate-x-2 text-black hover:text-gray-700 transition-colors z-10"
+                                className="absolute right-0 top-[40%] -translate-y-1/2 translate-x-4 sm:translate-x-6 text-black transition-all duration-300 z-20 bg-white/30 hover:bg-yellow-100/70 backdrop-blur-sm p-1.5 rounded-full"
                                 aria-label="Next slide"
                             >
-                                <FaChevronCircleRight className="w-8 h-8 md:w-10 md:h-10" />
+                                <motion.div
+                                    animate={{
+                                        x: [3, 0, 3],
+                                        transition: {
+                                            duration: 1.5,
+                                            repeat: Infinity,
+                                            repeatType: "reverse",
+                                            ease: "easeInOut"
+                                        }
+                                    }}
+                                >
+                                    <FaChevronCircleRight className="w-6 h-6 md:w-7 md:h-7" />
+                                </motion.div>
+                                <motion.span
+                                    className="absolute inset-0 rounded-full bg-yellow-500/10"
+                                    animate={{
+                                        scale: [1, 1.2, 1],
+                                        opacity: [0.5, 0.2, 0.5],
+                                    }}
+                                    transition={{
+                                        duration: 2,
+                                        repeat: Infinity,
+                                        repeatType: "reverse",
+                                        ease: "easeInOut"
+                                    }}
+                                />
                             </motion.button>
                         </>
                     )}

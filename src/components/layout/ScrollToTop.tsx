@@ -58,6 +58,7 @@ const ScrollToTop = () => {
         hover: {
             scale: 1.1,
             boxShadow: "0 10px 25px -5px rgba(0,0,0,0.2), 0 5px 10px -5px rgba(0,0,0,0.1)",
+            color: "#eab308", // yellow-500 - matches the horizontal line in Hairstyles
             transition: {
                 type: "spring",
                 stiffness: 400,
@@ -79,27 +80,38 @@ const ScrollToTop = () => {
                         whileTap="tap"
                         variants={buttonVariants}
                         onClick={scrollToTop}
-                        className="absolute bottom-6 right-6 sm:right-8 md:right-10 lg:right-12 bg-yellow-600 text-white p-3 rounded-full shadow-lg focus:outline-none group pointer-events-auto"
+                        className="absolute bottom-6 right-6 sm:right-8 md:right-10 lg:right-12 bg-white/30 hover:bg-yellow-100/70 text-black p-1.5 backdrop-blur-sm rounded-full shadow-lg focus:outline-none group pointer-events-auto transition-all duration-300"
                         style={{
                             transform: 'translateZ(0)',
                             willChange: 'transform',
                             isolation: 'isolate',
-                            margin: 0,
-                            padding: '0.75rem'
+                            margin: 0
                         }}
                         aria-label="Scroll to top"
                     >
-                        <FaChevronUp className="w-5 h-5 group-hover:animate-bounce" />
                         <motion.div
-                            className="absolute inset-0 rounded-full bg-yellow-500 -z-10"
-                            initial={{ scale: 0 }}
                             animate={{
-                                scale: [0.85, 1.05, 0.85],
-                                opacity: [0.3, 0.6, 0.3]
+                                y: [-2, 0, -2],
+                                transition: {
+                                    duration: 1.5,
+                                    repeat: Infinity,
+                                    repeatType: "reverse",
+                                    ease: "easeInOut"
+                                }
+                            }}
+                        >
+                            <FaChevronUp className="w-6 h-6 md:w-7 md:h-7" />
+                        </motion.div>
+                        <motion.span
+                            className="absolute inset-0 rounded-full bg-yellow-500/10"
+                            animate={{
+                                scale: [1, 1.2, 1],
+                                opacity: [0.5, 0.2, 0.5],
                             }}
                             transition={{
                                 duration: 2,
                                 repeat: Infinity,
+                                repeatType: "reverse",
                                 ease: "easeInOut"
                             }}
                         />
