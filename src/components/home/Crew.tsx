@@ -36,43 +36,12 @@ const Crew = () => {
         },
     };
 
-    const itemVariants = {
-        hidden: { opacity: 0, y: 30 },
-        visible: {
-            opacity: 1,
-            y: 0,
-            transition: {
-                duration: 0.6,
-            },
-        },
-    };
-
     const imageVariants = {
         hover: {
             scale: 1.15,
             transition: {
                 duration: 0.4,
                 ease: "easeOut"
-            }
-        }
-    };
-
-    const cardVariants = {
-        hover: {
-            y: -8,
-            scale: 1.02,
-            transition: {
-                duration: 0.3,
-                ease: "easeOut",
-                type: "spring",
-                stiffness: 200
-            }
-        },
-        tap: {
-            scale: 0.98,
-            y: 0,
-            transition: {
-                duration: 0.3
             }
         }
     };
@@ -91,6 +60,47 @@ const Crew = () => {
             }
         }
     };
+
+    // Add floating animation for crew members
+    const floatingVariants = (index: number) => ({
+        initial: { y: 0, rotate: 0, scale: 1 },
+        float: {
+            y: [0, -5, 0],
+            rotate: [0, 0.3, 0],
+            scale: [1, 1.01, 1],
+            transition: {
+                y: {
+                    repeat: Infinity,
+                    duration: 4 + index * 0.7,
+                    ease: "easeInOut",
+                    repeatType: "mirror"
+                },
+                rotate: {
+                    repeat: Infinity,
+                    duration: 5 + index * 0.7,
+                    ease: "easeInOut",
+                    repeatType: "mirror"
+                },
+                scale: {
+                    repeat: Infinity,
+                    duration: 4.5 + index * 0.7,
+                    ease: "easeInOut",
+                    repeatType: "mirror"
+                }
+            }
+        },
+        hover: {
+            y: -8,
+            rotate: 0,
+            scale: 1.02,
+            transition: {
+                duration: 0.3,
+                ease: "easeOut",
+                type: "spring",
+                stiffness: 300
+            }
+        }
+    });
 
     return (
         <section id="crew" className="py-8 bg-white scroll-mt-24">
@@ -120,16 +130,23 @@ const Crew = () => {
                     animate={inView ? 'visible' : 'hidden'}
                     className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto"
                 >
-                    {crewMembers.map((member) => (
-                        <motion.div
+                    {crewMembers.map((member, index) => (
+                        <motion.a
                             key={member.name}
-                            variants={{
-                                ...itemVariants,
-                                ...cardVariants
-                            }}
+                            href={member.instagram}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            initial="initial"
+                            animate="float"
                             whileHover="hover"
                             whileTap="tap"
-                            className="bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_-2px_rgba(0,0,0,0.1),0_4px_15px_-5px_rgba(0,0,0,0.15)] hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.2),0_10px_20px_-5px_rgba(0,0,0,0.15)] transition-all duration-300 p-4 border border-gray-100 cursor-pointer"
+                            variants={floatingVariants(index)}
+                            className="bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_-2px_rgba(0,0,0,0.1),0_4px_15px_-5px_rgba(0,0,0,0.15)] hover:shadow-[0_15px_30px_-5px_rgba(0,0,0,0.2),0_10px_20px_-5px_rgba(0,0,0,0.15)] transition-all duration-300 p-4 border border-gray-100 cursor-pointer block group"
+                            style={{
+                                willChange: "transform",
+                                transformStyle: "preserve-3d",
+                                transformOrigin: "center center"
+                            }}
                         >
                             <div className="relative w-24 h-24 mx-auto mb-3">
                                 <motion.div
@@ -174,22 +191,14 @@ const Crew = () => {
                                     {member.name}
                                 </h3>
                                 <p className="text-yellow-600 font-medium text-xs mb-2">{member.role}</p>
-                                <motion.div
-                                    className="flex justify-center"
-                                    whileHover={{ scale: 1.2 }}
-                                    whileTap={{ scale: 0.9 }}
-                                >
-                                    <a
-                                        href={member.instagram}
-                                        className="text-gray-400 hover:text-yellow-600 transition-colors"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                    >
+                                <div className="flex justify-center">
+                                    <span className="text-gray-400 group-hover:text-yellow-600 transition-colors flex items-center gap-1.5">
                                         <FaInstagram className="w-4 h-4" />
-                                    </a>
-                                </motion.div>
+                                        <span className="text-xs">View Instagram</span>
+                                    </span>
+                                </div>
                             </motion.div>
-                        </motion.div>
+                        </motion.a>
                     ))}
                 </motion.div>
             </div>
