@@ -33,8 +33,30 @@ const Testimonials = () => {
                     throw new Error(data.error || 'Failed to fetch reviews');
                 }
 
-                // Sort reviews by text length, longest first
-                const sortedReviews = [...data.reviews].sort((a, b) => b.text.length - a.text.length);
+                // First filter to only 5-star reviews
+                const fiveStarReviews = data.reviews.filter((review: Review) => review.rating === 5);
+
+                // Then sort by recency (using relative_time_description as a proxy for recency)
+                // This is a simple approach - if relative_time_description has actual timestamps,
+                // we could parse and sort by actual dates
+                const sortedReviews = [...fiveStarReviews].sort((a, b) => {
+                    // If we can extract numbers from the time descriptions, sort by those values
+                    const aTime = a.relative_time_description.match(/\d+/);
+                    const bTime = b.relative_time_description.match(/\d+/);
+
+                    // If both have numbers, compare the numbers
+                    if (aTime && bTime) {
+                        return parseInt(aTime[0], 10) - parseInt(bTime[0], 10);
+                    }
+
+                    // If only one has numbers, prioritize the one without numbers (likely "a week ago" vs "3 weeks ago")
+                    if (!aTime && bTime) return -1;
+                    if (aTime && !bTime) return 1;
+
+                    // As a fallback, sort by text length for substantial reviews
+                    return b.text.length - a.text.length;
+                });
+
                 setReviews(sortedReviews);
             } catch (err) {
                 const errorMessage = err instanceof Error ? err.message : 'Failed to load reviews';
