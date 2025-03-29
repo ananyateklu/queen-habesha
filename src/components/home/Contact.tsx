@@ -90,18 +90,6 @@ const Contact = () => {
         }
     };
 
-    const imageOverlayVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: { duration: 0.8, delay: 0.8 }
-        },
-        hover: {
-            opacity: 0.3,
-            transition: { duration: 0.3 }
-        }
-    };
-
     const buttonVariants = {
         hidden: { opacity: 0, y: 20 },
         visible: {
