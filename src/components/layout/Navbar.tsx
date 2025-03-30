@@ -26,6 +26,12 @@ const Navbar = () => {
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 20);
 
+            // If we're at the top of the page, we're in the home section
+            if (window.scrollY < 100) {
+                setActiveSection('home');
+                return;
+            }
+
             // Get all sections
             const sections = ['home', 'services', 'crew', 'testimonials', 'contact'];
 
@@ -43,12 +49,6 @@ const Navbar = () => {
                     // Add a large offset (500px) to detect sections well before they reach the viewport
                     const effectiveTop = rect.top - 500;
                     const distance = Math.abs(effectiveTop);
-
-                    // Special case for home section
-                    if (section === 'home' && window.scrollY < 100) {
-                        closestSection = 'home';
-                        break;
-                    }
 
                     // If this section is closer to our detection point than the previous one
                     if (distance < closestDistance) {
@@ -158,7 +158,7 @@ const Navbar = () => {
                     <div className="hidden md:flex items-center">
                         <div className="flex items-center space-x-1 lg:space-x-3">
                             {navItems.map((item) => {
-                                const sectionId = item.href.replace('/#', '') || 'home';
+                                const sectionId = item.href === '/' ? 'home' : item.href.replace('/#', '');
                                 const isActive = activeSection === sectionId;
 
                                 return (
@@ -176,9 +176,13 @@ const Navbar = () => {
                                         {/* Golden animated underline */}
                                         {isActive && (
                                             <motion.span
-                                                className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-yellow-600/30 via-yellow-400 to-yellow-600/30 mx-3"
+                                                className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-transparent via-yellow-400 to-transparent"
                                                 layoutId="navbar-underline"
                                                 transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                                                style={{
+                                                    maskImage: 'linear-gradient(to right, transparent, black 20%, black 80%, transparent)',
+                                                    WebkitMaskImage: 'linear-gradient(to right, transparent, black 20%, black 80%, transparent)'
+                                                }}
                                             />
                                         )}
 
@@ -250,7 +254,7 @@ const Navbar = () => {
                     >
                         <div className="px-4 pt-2 pb-4 space-y-1">
                             {navItems.map((item) => {
-                                const sectionId = item.href.replace('/#', '') || 'home';
+                                const sectionId = item.href === '/' ? 'home' : item.href.replace('/#', '');
                                 const isActive = activeSection === sectionId;
 
                                 return (
