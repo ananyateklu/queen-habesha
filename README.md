@@ -12,27 +12,15 @@ Queen Habesha brings authentic Ethiopian hair care traditions to Minneapolis, of
 
 ## Features
 
-### Core Components
-
-- **Hero Section**: Dynamic landing page with animated content and call-to-action buttons
-- **Hairstyle Gallery**: Interactive carousel showcasing various hairstyles with auto-advance
-- **Services Showcase**: Comprehensive grid display of our service offerings
-- **Team Profiles**: Meet our expert stylists with social media integration
-- **Live Reviews**: Real-time Google Reviews integration with dynamic animations
-- **Contact Information**: Interactive map and detailed business information
-- **Responsive Navigation**: Smooth-scrolling menu with mobile optimization
-
-### Technical Features
-
-- Responsive design optimized for all devices
-- Dynamic image loading and optimization
-- Real-time Google Reviews integration
-- Interactive Google Maps integration
-- Smooth scroll navigation
-- Modern UI animations and transitions
-- SEO optimization with metadata
-- Performance-optimized image loading
-- Mobile-first design approach
+- **Hero Section**: Dynamic landing page with animated content and call-to-action buttons.
+- **Hairstyle Gallery**: Interactive carousel showcasing various hairstyles with auto-advance.
+- **Services Showcase**: Comprehensive grid display of our service offerings.
+- **Team Profiles**: Meet our expert stylists with social media integration.
+- **Live Reviews & Map**: Real-time Google Reviews integration and interactive Google Maps.
+- **Contact Information**: Detailed business information alongside the map.
+- **Responsive Design**: Optimized for all devices using a mobile-first approach with smooth-scrolling navigation.
+- **Performance**: Optimized image loading (Next/Image), dynamic imports, and smooth animations (Framer Motion).
+- **SEO**: Foundational SEO optimization with metadata and semantic HTML.
 
 ## Tech Stack
 
@@ -42,15 +30,14 @@ Queen Habesha brings authentic Ethiopian hair care traditions to Minneapolis, of
 - TypeScript for type safety
 - Tailwind CSS for styling
 - Framer Motion for animations
-- Google Maps API integration
+- Google Maps API & Places API integration
 - React Icons for visual elements
 
 ### Development Tools
 
 - ESLint for code quality
-- TypeScript for static typing
-- Next.js built-in optimizations
-- Image optimization via Next/Image
+- npm/yarn for package management
+- Git for version control
 
 ## Getting Started
 
@@ -130,19 +117,10 @@ src/
 
 ## Development Notes
 
-### Performance Optimizations
-
-- Dynamic imports for heavy components
-- Image optimization using Next/Image
-- Lazy loading of Google Maps
-- Optimized animations with Framer Motion
-
-### SEO Considerations
-
-- Meta tags configuration
-- Semantic HTML structure
-- Optimized image alt texts
-- Mobile responsiveness
+- **Optimizations**: Includes dynamic imports for heavy components (like Google Maps), optimized images via `Next/Image`, and efficient animations using Framer Motion.
+- **Environment**: Requires Google Maps API key and Place ID set up in `.env.local`.
+- **Code Quality**: Maintained using ESLint and TypeScript.
+- **Structure**: Follows standard Next.js App Router conventions.
 
 ## Deployment
 
