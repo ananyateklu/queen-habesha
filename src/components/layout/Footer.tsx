@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
-import { FaMapMarkerAlt, FaPhone, FaEnvelope, FaInstagram, FaFacebook, FaTiktok, FaHeart } from 'react-icons/fa';
+import { FaPhone, FaEnvelope, FaInstagram, FaFacebook, FaTiktok, FaHeart } from 'react-icons/fa';
 
 const Footer = () => {
     const currentYear = new Date().getFullYear();
@@ -103,6 +103,8 @@ const Footer = () => {
                                 </a>
                             </li>
 
+                            {/* Address removed */}
+                            {/* 
                             <li className="flex items-center">
                                 <div className="text-yellow-500 w-5 flex-shrink-0 self-start mt-0.5">
                                     <FaMapMarkerAlt className="w-3 h-3" />
@@ -116,6 +118,7 @@ const Footer = () => {
                                     2917 Cliff Rd East, Burnsville, MN 55337
                                 </a>
                             </li>
+                            */}
                         </ul>
                     </motion.div>
 
