@@ -12,12 +12,12 @@ const crewMembers = [
         image: '/images/Helen.png',
         instagram: 'https://www.instagram.com/hhailu401/',
     },
-    {
-        name: 'Mekdi',
-        role: 'Co-Owner & Master Stylist',
-        image: '/images/mekdi.jpg',
-        instagram: 'https://www.instagram.com/mekdesakwak/',
-    },
+    // {
+    //     name: 'Mekdi',
+    //     role: 'Co-Owner & Master Stylist',
+    //     image: '/images/mekdi.jpg',
+    //     instagram: 'https://www.instagram.com/mekdesakwak/',
+    // },
 ];
 
 const Crew = () => {
@@ -148,7 +148,7 @@ const Crew = () => {
                     variants={containerVariants}
                     initial="hidden"
                     animate={inView ? 'visible' : 'hidden'}
-                    className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto"
+                    className="grid grid-cols-1 gap-6 max-w-xl mx-auto"
                 >
                     {crewMembers.map((member, index) => (
                         <motion.a
