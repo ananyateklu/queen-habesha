@@ -10,7 +10,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Queen Habesha - Ethiopian Hair Salon',
+  title: 'Queen Habesha Hair Braiding – Ethiopian Hair Salon in Burnsville, MN',
   description: 'Experience authentic Ethiopian hair care and styling at Queen Habesha. Specializing in traditional braiding, natural hair care, and modern styling techniques.',
   icons: {
     icon: [
@@ -44,6 +44,9 @@ export const metadata: Metadata = {
         type: 'image/png',
       }
     ]
+  },
+  alternates: {
+    canonical: 'https://www.queenhabesha.com/'
   }
 };
 

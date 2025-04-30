@@ -209,7 +209,7 @@ const Contact = () => {
                                         />
                                     </motion.div>
                                     <div>
-                                        <h4 className="text-base font-semibold text-gray-900 mb-0.5 group-hover:text-yellow-700 transition-colors">Phone</h4>
+                                        <h3 className="text-base font-semibold text-gray-900 mb-0.5 group-hover:text-yellow-700 transition-colors">Phone</h3>
                                         <a
                                             href="tel:+13014331934"
                                             className="text-sm text-yellow-600 hover:text-yellow-700 transition-colors flex items-center gap-2 group/link"
@@ -256,7 +256,7 @@ const Contact = () => {
                                         />
                                     </motion.div>
                                     <div>
-                                        <h4 className="text-base font-semibold text-gray-900 mb-0.5 group-hover:text-yellow-700 transition-colors">Location</h4>
+                                        <h3 className="text-base font-semibold text-gray-900 mb-0.5 group-hover:text-yellow-700 transition-colors">Location</h3>
                                         <a
                                             href="https://maps.google.com/?q=2917+Cliff+Rd+East+Burnsville+MN+55337"
                                             target="_blank"
@@ -287,7 +287,7 @@ const Contact = () => {
                                 >
                                     <div className="flex items-center gap-2 mb-2">
                                         <FaClock className="text-yellow-600 text-sm" />
-                                        <h4 className="text-base font-semibold text-gray-900">Business Hours</h4>
+                                        <h3 className="text-base font-semibold text-gray-900">Business Hours</h3>
                                     </div>
                                     <div className="space-y-2 text-gray-600 text-xs">
                                         <motion.div

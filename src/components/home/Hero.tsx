@@ -218,7 +218,11 @@ const Hero = () => {
                         initial="hidden"
                         animate="visible"
                     >
-                        <div className="flex flex-wrap justify-center text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold mb-2 md:mb-4 mx-auto">
+                        <motion.h1
+                            className="flex flex-wrap justify-center text-2xl sm:text-3xl md:text-5xl lg:text-6xl font-bold mb-2 md:mb-4 mx-auto"
+                            initial="hidden"
+                            animate="visible"
+                        >
                             {headlineWords.map((word, i) => (
                                 <motion.span
                                     key={i}
@@ -228,7 +232,7 @@ const Hero = () => {
                                     {word}
                                 </motion.span>
                             ))}
-                        </div>
+                        </motion.h1>
 
                         <motion.div
                             className="h-[2px] w-0 mx-auto mt-2 mb-4 md:mb-6 relative overflow-hidden"
